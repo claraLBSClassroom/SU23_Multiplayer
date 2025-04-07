@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     Button hostButton;
     Button clientButton;
     Button serverButton;
-    Button moveButton;
+    //Button moveButton;
     Label statusLabel;
 
     void OnEnable()
@@ -21,25 +21,26 @@ public class GameManager : MonoBehaviour
         hostButton = CreateButton("HostButton", "Host");
         clientButton = CreateButton("ClientButton", "Client");
         serverButton = CreateButton("ServerButton", "Server");
-        moveButton = CreateButton("MoveButton", "Move");
+        //moveButton = CreateButton("MoveButton", "Move");
         statusLabel = CreateLabel("StatusLabel", "Not Connected");
 
         rootVisualElement.Clear();
         rootVisualElement.Add(hostButton);
         rootVisualElement.Add(clientButton);
         rootVisualElement.Add(serverButton);
-        rootVisualElement.Add(moveButton);
+        //rootVisualElement.Add(moveButton);
         rootVisualElement.Add(statusLabel);
 
         hostButton.clicked += OnHostButtonClicked;
         clientButton.clicked += OnClientButtonClicked;
         serverButton.clicked += OnServerButtonClicked;
-        moveButton.clicked += SubmitNewPosition;
+        //moveButton.clicked += SubmitNewPosition;
     }
 
     void Update()
     {
         UpdateUI();
+       
     }
 
     void OnDisable()
@@ -47,7 +48,7 @@ public class GameManager : MonoBehaviour
         hostButton.clicked -= OnHostButtonClicked;
         clientButton.clicked -= OnClientButtonClicked;
         serverButton.clicked -= OnServerButtonClicked;
-        moveButton.clicked -= SubmitNewPosition;
+        //moveButton.clicked -= SubmitNewPosition;
     }
 
     void OnHostButtonClicked() => NetworkManager.Singleton.StartHost();
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour
         if (NetworkManager.Singleton == null)
         {
             SetStartButtons(false);
-            SetMoveButton(false);
+            //SetMoveButton(false);
             SetStatusText("NetworkManager not found");
             return;
         }
@@ -92,13 +93,13 @@ public class GameManager : MonoBehaviour
         if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
         {
             SetStartButtons(true);
-            SetMoveButton(false);
+            //SetMoveButton(false);
             SetStatusText("Not connected");
         }
         else
         {
             SetStartButtons(false);
-            SetMoveButton(true);
+            //SetMoveButton(true);
             UpdateStatusLabels();
         }
     }
@@ -110,14 +111,14 @@ public class GameManager : MonoBehaviour
         serverButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
     }
 
-    void SetMoveButton(bool state)
-    {
-        moveButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
-        if (state)
-        {
-            moveButton.text = NetworkManager.Singleton.IsServer ? "Move" : "Request Position Change";
-        }
-    }
+    //void SetMoveButton(bool state)
+    //{
+    //    moveButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
+    //    if (state)
+    //    {
+    //        moveButton.text = NetworkManager.Singleton.IsServer ? "Move" : "Request Position Change";
+    //    }
+    //}
 
     void SetStatusText(string text) => statusLabel.text = text;
 
@@ -131,6 +132,7 @@ public class GameManager : MonoBehaviour
 
     void SubmitNewPosition()
     {
+        /*
         if (NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
         {
             foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
@@ -140,11 +142,13 @@ public class GameManager : MonoBehaviour
                 player.Move();
             }
         }
-        else if (NetworkManager.Singleton.IsClient)
+        else 
+        if (NetworkManager.Singleton.IsClient)
         {
             var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
             var player = playerObject.GetComponent<Player>();
             player.Move();
         }
+        */
     }
 }

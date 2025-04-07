@@ -10,8 +10,8 @@ public class NetworkTransformTest : NetworkBehaviour
     {
         if (IsServer) //Only the server can move the Player in a circle. 
         {
-            float theta = Time.time;
-            transform.position = new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
+            //float theta = Time.time;
+            //transform.position = new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
         }
     }
 }
